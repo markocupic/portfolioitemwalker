@@ -1,0 +1,45 @@
+{
+  "name": "markocupic/portfolioitemwalker",
+  "description": "Contao frontend module to navigate from one erdmannfreunde portfolio [erdmannfreunde/portfoliobundle] item to another in the detailview.",
+  "keywords": [
+    "contao",
+    "portfolioitemwalker",
+    "erdmannfreunde/portfoliobundle",
+    "walk",
+    "navigation"
+  ],
+  "type": "contao-module",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Marko Cupic",
+      "email": "m.cupic@gmx.ch",
+      "homepage": "https://github.com/markocupic",
+      "role": "Developer"
+    }
+  ],
+  "support": {
+    "issues": "https://github.com/markocupic/portfoliowalker/issues",
+    "source": "https://github.com/markocupic/newsitemwalker"
+  },
+  "require": {
+    "contao/core-bundle": "^4.4",
+    "erdmannfreunde/portfoliobundle": "^1.0"
+  },
+  "replace": {
+    "contao-legacy/portfolioitemwalker": "self.version"
+  },
+  "autoload": {
+    "classmap": [
+      ""
+    ]
+  },
+  "extra": {
+    "contao": {
+      "sources": {
+        "": "system/modules/portfolioitemwalker"
+      }
+    }
+  }
+}
+

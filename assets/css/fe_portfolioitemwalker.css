@@ -1,0 +1,24 @@
+/*
+ * This file is part of Contao Portfolio Item Walker.
+ *
+ * (c) Marko Cupic, april 2019
+ * @author Marko Cupic <https://github.com/markocupic/portfolioitemwalker>
+ * @license MIT
+ */
+
+.portfolioitemwalker_prev a:before {
+    content: "\00AB\00A0";
+}
+
+div.portfolioitemwalker_prev {
+    display: inline;
+    padding-right: 10px;
+}
+
+.portfolioitemwalker_next a:after {
+    content: "\00A0\00BB";
+}
+
+div.portfolioitemwalker_next {
+    display: inline;
+}
