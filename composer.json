@@ -23,8 +23,7 @@
     "source": "https://github.com/markocupic/newsitemwalker"
   },
   "require": {
-    "contao/core-bundle": "^4.4",
-    "erdmannfreunde/portfoliobundle": "^1.0"
+    "contao/core-bundle": "^4.4"
   },
   "replace": {
     "contao-legacy/portfolioitemwalker": "self.version"

@@ -29,7 +29,7 @@ class ModulePortfolioitemwalker extends Module
      * Template
      * @var string
      */
-    protected $strTemplate = 'mod_newsitemwalker';
+    protected $strTemplate = 'mod_portfolioitemwalker';
 
     /**
      * Display a wildcard in the back end
@@ -48,13 +48,18 @@ class ModulePortfolioitemwalker extends Module
             return $objTemplate->parse();
         }
 
+        if(!\Database::getInstance()->tableExists('tl_portfolio'))
+        {
+            return '';
+        }
+
         // Set the item from the auto_item parameter
         if (Config::get('useAutoItem') && isset($_GET['auto_item']))
         {
             Input::setGet('items', Input::get('auto_item'));
         }
 
-        // Return if no news item has been specified
+        // Return if no portfolio item has been specified
         if (!Input::get('items'))
         {
             return '';
