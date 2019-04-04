@@ -4,7 +4,7 @@
   "keywords": [
     "contao",
     "portfolioitemwalker",
-    "erdmannfreunde/portfoliobundle",
+    "addon for erdmannfreunde/portfoliobundle",
     "walk",
     "navigation"
   ],
@@ -19,8 +19,8 @@
     }
   ],
   "support": {
-    "issues": "https://github.com/markocupic/portfoliowalker/issues",
-    "source": "https://github.com/markocupic/newsitemwalker"
+    "issues": "https://github.com/markocupic/portfolioitemwalker/issues",
+    "source": "https://github.com/markocupic/portfolioitemwalker"
   },
   "require": {
     "contao/core-bundle": "^4.4"
