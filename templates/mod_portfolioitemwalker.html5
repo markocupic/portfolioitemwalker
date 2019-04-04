@@ -1,5 +1,4 @@
 <?php
-    // Load Stylesheet
     $GLOBALS['TL_CSS'][]  = 'system/modules/portfolioitemwalker/assets/css/fe_portfolioitemwalker.css';
 ?>
 
