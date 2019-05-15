@@ -12,6 +12,7 @@ namespace Markocupic\Portfolioitemwalker;
 use Contao\BackendTemplate;
 use Contao\Input;
 use Contao\FrontendTemplate;
+use Contao\ModuleModel;
 use Contao\NewsModel;
 use Contao\Module;
 use Contao\PageModel;
@@ -32,6 +33,12 @@ class ModulePortfolioitemwalker extends Module
     protected $strTemplate = 'mod_portfolioitemwalker';
 
     /**
+     * The listing module
+     * @var
+     */
+    protected $objModPortfolioListModule;
+
+    /**
      * Display a wildcard in the back end
      * @return string
      */
@@ -48,10 +55,18 @@ class ModulePortfolioitemwalker extends Module
             return $objTemplate->parse();
         }
 
-        if(!\Database::getInstance()->tableExists('tl_portfolio'))
+        // Table check
+        if (!\Database::getInstance()->tableExists('tl_portfolio'))
         {
             return '';
         }
+
+        // Get the portfolio listing module
+        if (($objModPortfolioListModule = ModuleModel::findByPk($this->useConfigFromPortfolioitemwalkerListingModule)) === null)
+        {
+            return '';
+        }
+        $this->objModPortfolioListModule = $objModPortfolioListModule;
 
         // Set the item from the auto_item parameter
         if (Config::get('useAutoItem') && isset($_GET['auto_item']))
@@ -87,7 +102,16 @@ class ModulePortfolioitemwalker extends Module
         $time = time();
 
         // Previous portfolio item
-        $objPrevPortfolio = $this->Database->prepare("SELECT * FROM tl_portfolio WHERE sorting<? AND (start='' OR start<?) AND (stop='' OR stop>?) AND published=1 ORDER BY sorting DESC")->limit(1)->execute($objCurrentItem->sorting, $time, $time);
+        // Handle featured/unfeatured items
+        if ($this->objModPortfolioListModule->portfolio_featured === 'featured' || $this->objModPortfolioListModule->portfolio_featured === 'unfeatured')
+        {
+            $blnFeatured = $this->objModPortfolioListModule->portfolio_featured === 'featured' ? '1' : '';
+            $objPrevPortfolio = $this->Database->prepare("SELECT * FROM tl_portfolio WHERE sorting<? AND (start='' OR start<?) AND (stop='' OR stop>?) AND published=1 AND featured=? ORDER BY sorting DESC")->limit(1)->execute($objCurrentItem->sorting, $time, $time, $blnFeatured);
+        }
+        else
+        {
+            $objPrevPortfolio = $this->Database->prepare("SELECT * FROM tl_portfolio WHERE sorting<? AND (start='' OR start<?) AND (stop='' OR stop>?) AND published=1 ORDER BY sorting DESC")->limit(1)->execute($objCurrentItem->sorting, $time, $time);
+        }
         if ($objPrevPortfolio->numRows > 0)
         {
             $prevHref = $objPageModel->getFrontendUrl((Config::get('useAutoItem') ? '/' : '/items/') . ($objPrevPortfolio->alias ?: $objPrevPortfolio->id));
@@ -102,7 +126,15 @@ class ModulePortfolioitemwalker extends Module
         }
 
         // Next portfolio item
-        $objNextPortfolio = $this->Database->prepare("SELECT * FROM tl_portfolio WHERE sorting>? AND (start='' OR start<?) AND (stop='' OR stop>?) AND published=1 ORDER BY sorting ASC")->limit(1)->execute($objCurrentItem->sorting, $time, $time);
+        if ($this->objModPortfolioListModule->portfolio_featured === 'featured' || $this->objModPortfolioListModule->portfolio_featured === 'unfeatured')
+        {
+            $blnFeatured = $this->objModPortfolioListModule->portfolio_featured === 'featured' ? '1' : '';
+            $objNextPortfolio = $this->Database->prepare("SELECT * FROM tl_portfolio WHERE sorting>? AND (start='' OR start<?) AND (stop='' OR stop>?) AND published=1 AND featured=? ORDER BY sorting ASC")->limit(1)->execute($objCurrentItem->sorting, $time, $time, $blnFeatured);
+        }
+        else
+        {
+            $objNextPortfolio = $this->Database->prepare("SELECT * FROM tl_portfolio WHERE sorting>? AND (start='' OR start<?) AND (stop='' OR stop>?) AND published=1 ORDER BY sorting ASC")->limit(1)->execute($objCurrentItem->sorting, $time, $time);
+        }
         if ($objNextPortfolio->numRows > 0)
         {
             $nextHref = $objPageModel->getFrontendUrl((Config::get('useAutoItem') ? '/' : '/items/') . ($objNextPortfolio->alias ?: $objNextPortfolio->id));
