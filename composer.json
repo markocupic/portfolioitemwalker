@@ -4,7 +4,7 @@
   "keywords": [
     "contao",
     "portfolioitemwalker",
-    "addon for erdmannfreunde/portfoliobundle",
+    "addon for erdmannfreunde portfoliobundle",
     "walk",
     "navigation"
   ],
@@ -30,7 +30,7 @@
   },
   "autoload": {
     "classmap": [
-      
+
     ]
   },
   "extra": {
