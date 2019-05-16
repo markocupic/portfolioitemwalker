@@ -1,6 +1,6 @@
 {
   "name": "markocupic/portfolioitemwalker",
-  "description": "Contao frontend module to navigate from one erdmannfreunde portfolio [erdmannfreunde/portfoliobundle] item to another in the detailview.",
+  "description": "Contao frontend module to navigate from one erdmannfreunde portfolio erdmannfreunde portfoliobundle item to another in the detailview.",
   "keywords": [
     "contao",
     "portfolioitemwalker",
@@ -29,9 +29,7 @@
     "contao-legacy/portfolioitemwalker": "self.version"
   },
   "autoload": {
-    "classmap": [
-
-    ]
+    "classmap": []
   },
   "extra": {
     "contao": {
